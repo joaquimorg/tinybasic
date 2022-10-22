@@ -31,6 +31,7 @@
 #undef MINGW
 #undef MSDOS
 #undef RASPPI
+#define NRF52
 
 /*
 	interpreter feature sets, choose one of the predefines 
@@ -43,16 +44,19 @@
  * BASICTINYWITHFLOAT: a floating point tinybasic
  * BASICMINIMAL: minimal language
  */
-#define	BASICFULL
+#undef	BASICFULL
 #undef	BASICINTEGER
 #undef	BASICSIMPLE
 #undef	BASICMINIMAL
 #undef	BASICTINYWITHFLOAT
+#define	NRF52BASICTINYWITHFLOAT
 
 /*
  * custom settings undef all the the language sets 
  * when you def here
  */ 
+
+/*
 #define HASAPPLE1
 #define HASARDUINOIO
 #define HASFILEIO
@@ -68,100 +72,120 @@
 #define HASIOT
 #define HASMULTIDIM
 #define HASSTRINGARRAYS
+*/
 
 /* Palo Alto plus Arduino functions */
 #ifdef BASICMINIMAL
-#undef HASAPPLE1
-#define HASARDUINOIO
-#undef HASFILEIO
-#undef HASTONE
-#undef HASPULSE
-#undef HASSTEFANSEXT
-#undef HASERRORMSG
-#undef HASVT52
-#undef HASFLOAT
-#undef HASGRAPH
-#undef HASDARTMOUTH
-#undef HASDARKARTS
-#undef HASIOT
-#undef HASMULTIDIM
-#undef HASSTRINGARRAYS
+	#undef HASAPPLE1
+	#define HASARDUINOIO
+	#undef HASFILEIO
+	#undef HASTONE
+	#undef HASPULSE
+	#undef HASSTEFANSEXT
+	#undef HASERRORMSG
+	#undef HASVT52
+	#undef HASFLOAT
+	#undef HASGRAPH
+	#undef HASDARTMOUTH
+	#undef HASDARKARTS
+	#undef HASIOT
+	#undef HASMULTIDIM
+	#undef HASSTRINGARRAYS
 #endif
 
 /* all features minus float and tone */
 #ifdef  BASICINTEGER
-#define HASAPPLE1
-#define HASARDUINOIO
-#define HASFILEIO
-#define HASTONE
-#define HASPULSE
-#define HASSTEFANSEXT
-#define HASERRORMSG
-#define HASVT52
-#undef  HASFLOAT
-#define HASGRAPH
-#define HASDARTMOUTH
-#define HASDARKARTS
-#define HASIOT
-#define HASMULTIDIM
-#define HASSTRINGARRAYS
+	#define HASAPPLE1
+	#define HASARDUINOIO
+	#define HASFILEIO
+	#define HASTONE
+	#define HASPULSE
+	#define HASSTEFANSEXT
+	#define HASERRORMSG
+	#define HASVT52
+	#undef  HASFLOAT
+	#define HASGRAPH
+	#define HASDARTMOUTH
+	#define HASDARKARTS
+	#define HASIOT
+	#define HASMULTIDIM
+	#define HASSTRINGARRAYS
 #endif
 
 /* a simple integer basic for small systems (UNO etc) */
 #ifdef  BASICSIMPLE
-#define HASAPPLE1
-#define HASARDUINOIO
-#define HASFILEIO
-#undef 	HASTONE
-#define HASPULSE
-#define HASSTEFANSEXT
-#define HASERRORMSG
-#define HASVT52
-#undef  HASFLOAT
-#undef  HASGRAPH
-#define HASDARTMOUTH
-#undef  HASDARKARTS
-#define HASIOT
-#undef  HASMULTIDIM
-#undef  HASSTRINGARRAYS
+	#define HASAPPLE1
+	#define HASARDUINOIO
+	#define HASFILEIO
+	#undef 	HASTONE
+	#define HASPULSE
+	#define HASSTEFANSEXT
+	#define HASERRORMSG
+	#define HASVT52
+	#undef  HASFLOAT
+	#undef  HASGRAPH
+	#define HASDARTMOUTH
+	#undef  HASDARKARTS
+	#define HASIOT
+	#undef  HASMULTIDIM
+	#undef  HASSTRINGARRAYS
 #endif
 
 /* all features activated */
 #ifdef BASICFULL
-#define HASAPPLE1
-#define HASARDUINOIO
-#define HASFILEIO
-#define HASTONE
-#define HASPULSE
-#define HASSTEFANSEXT
-#define HASERRORMSG
-#define HASVT52
-#define HASFLOAT
-#define HASGRAPH
-#define HASDARTMOUTH
-#define HASDARKARTS
-#define HASIOT
-#define HASMULTIDIM
-#define HASSTRINGARRAYS
+	#define HASAPPLE1
+	#define HASARDUINOIO
+	#define HASFILEIO
+	#define HASTONE
+	#define HASPULSE
+	#define HASSTEFANSEXT
+	#define HASERRORMSG
+	#define HASVT52
+	#define HASFLOAT
+	#define HASGRAPH
+	#define HASDARTMOUTH
+	#define HASDARKARTS
+	#define HASIOT
+	#define HASMULTIDIM
+	#define HASSTRINGARRAYS
 #endif
 
 /* a Tinybasic with float support */
 #ifdef BASICTINYWITHFLOAT
-#undef HASAPPLE1
-#define HASARDUINOIO
-#undef HASFILEIO
-#undef HASTONE
-#undef HASPULSE
-#define HASSTEFANSEXT
-#define HASERRORMSG
-#undef HASVT52
-#define HASFLOAT
-#undef HASGRAPH
-#undef HASDARTMOUTH
-#undef HASDARKARTS
-#undef HASIOT
-#undef HASMULTIDIM
-#undef HASSTRINGARRAYS
+	#undef HASAPPLE1
+	#define HASARDUINOIO
+	#undef HASFILEIO
+	#undef HASTONE
+	#undef HASPULSE
+	#define HASSTEFANSEXT
+	#define HASERRORMSG
+	#undef HASVT52
+	#define HASFLOAT
+	#undef HASGRAPH
+	#undef HASDARTMOUTH
+	#undef HASDARKARTS
+	#undef HASIOT
+	#undef HASMULTIDIM
+	#undef HASSTRINGARRAYS
+#endif
+
+/* a Tinybasic with float support for NRF52 */
+#ifdef NRF52BASICTINYWITHFLOAT
+	#undef HASAPPLE1
+	#undef HASARDUINOIO
+	#undef HASFILEIO
+	#undef HASTONE
+	#undef HASPULSE
+	#define HASSTEFANSEXT
+	#define HASERRORMSG
+	#undef HASVT52
+	#define HASFLOAT
+	#undef HASGRAPH
+	#undef HASDARTMOUTH
+	#undef HASDARKARTS
+	#undef HASIOT
+	#undef HASMULTIDIM
+	#undef HASSTRINGARRAYS
 #endif
 
 /*
@@ -189,7 +213,11 @@
 #endif
 
 /* hardcoded memory size, set 0 for automatic malloc, don't redefine this beyond this point */
-#define MEMSIZE 0
+#ifdef NRF52
+	#define MEMSIZE 8192
+#else
+	#define MEMSIZE 0
+#endif
 
 /* debug mode switch */
 #define DEBUG 0
@@ -209,9 +237,11 @@
  *		latter will be removed soon.
  */
 #ifdef ARDUINO
-#include "hardware-arduino.h"
+	#include "hardware-arduino.h"
+#elif NRF52
+	#include "hardware-nrf52.h"
 #else 
-#include "hardware-posix.h"
+	#include "hardware-posix.h"
 #endif
 
 /* 
