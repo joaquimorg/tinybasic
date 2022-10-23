@@ -31,7 +31,6 @@
 #undef MINGW
 #undef MSDOS
 #undef RASPPI
-#define NRF52
 
 /*
 	interpreter feature sets, choose one of the predefines 
@@ -171,17 +170,17 @@
 
 /* a Tinybasic with float support for NRF52 */
 #ifdef NRF52BASICTINYWITHFLOAT
-	#undef HASAPPLE1
+	#define HASAPPLE1
 	#undef HASARDUINOIO
 	#undef HASFILEIO
 	#undef HASTONE
 	#undef HASPULSE
-	#define HASSTEFANSEXT
+	#undef HASSTEFANSEXT
 	#define HASERRORMSG
 	#undef HASVT52
 	#define HASFLOAT
 	#undef HASGRAPH
-	#undef HASDARTMOUTH
+	#define HASDARTMOUTH
 	#undef HASDARKARTS
 	#undef HASIOT
 	#undef HASMULTIDIM
@@ -214,7 +213,8 @@
 
 /* hardcoded memory size, set 0 for automatic malloc, don't redefine this beyond this point */
 #ifdef NRF52
-	#define MEMSIZE 8192
+	#define MEMSIZE 0
+	#define MEMMODEL 5
 #else
 	#define MEMSIZE 0
 #endif
@@ -240,6 +240,9 @@
 	#include "hardware-arduino.h"
 #elif NRF52
 	#include "hardware-nrf52.h"
+	#include <stdlib.h>
+	#include <stdio.h>
+	#include <math.h>
 #else 
 	#include "hardware-posix.h"
 #endif
@@ -6887,7 +6890,10 @@ void setup() {
 		printmessage(MGREET); outspc();
 		printmessage(EOUTOFMEMORY); outspc(); 
 		outnumber(memsize+1); outspc();
-		outnumber(elength()); outcr();
+		outnumber(elength());
+		outcr();
+		outsc("***"); 
+		outcr();
  	}
 }
 
@@ -6936,7 +6942,7 @@ void loop() {
 }
 
 /* if we are not on an Arduino */
-#ifndef ARDUINO
+#if ! defined(ARDUINO) && ! defined(NRF52)
 int main(int argc, char* argv[]){
 
 /* save the arguments if there are any */

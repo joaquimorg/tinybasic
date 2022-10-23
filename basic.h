@@ -38,30 +38,34 @@
  *	MSDOS, Mac, Linux and Windows 
  */
 #ifndef ARDUINO
-typedef unsigned char uint8_t;
-#define PROGMEM
-#include <stdio.h>
-#include <stdlib.h>
-#ifdef HASFLOAT
-#include <math.h>
-#include <float.h>
-#endif
-#include <time.h>
-#include <sys/types.h>
-#include <sys/timeb.h>
-#ifndef MSDOS
-#include <dirent.h>
-#include <unistd.h>
-#else
-#include <dir.h>
-#include <dos.h>
-#endif
-#ifdef MINGW
-#include <windows.h>
-#endif
-#ifdef RASPPI
-#include <wiringPi.h>
-#endif
+	#ifdef NRF52
+		#define PROGMEM
+	#else
+		typedef unsigned char uint8_t;
+		#define PROGMEM
+		#include <stdio.h>
+		#include <stdlib.h>
+		#ifdef HASFLOAT
+			#include <math.h>
+			#include <float.h>
+		#endif
+		#include <time.h>
+		#include <sys/types.h>
+		#include <sys/timeb.h>
+		#ifndef MSDOS
+			#include <dirent.h>
+			#include <unistd.h>
+		#else
+			#include <dir.h>
+			#include <dos.h>
+		#endif
+		#ifdef MINGW
+			#include <windows.h>
+		#endif
+		#ifdef RASPPI
+			#include <wiringPi.h>
+		#endif
+	#endif
 #endif
 
 /* general definitions, needed on some old compilers */
@@ -563,7 +567,7 @@ const signed char tokens[] PROGMEM = {
 #define ESDCARD		 28
 
 const char mfile[]    	PROGMEM = "file.bas";
-const char mprompt[]	PROGMEM = "> ";
+const char mprompt[]	PROGMEM = "] ";
 const char mgreet[]		PROGMEM = "Stefan's Basic 1.4a";
 const char mline[]		PROGMEM = "LINE";
 const char mnumber[]	PROGMEM = "NUMBER";
@@ -981,12 +985,14 @@ short prtcheckch();
 short prtavailable();
 
 /* generic wire access */
+#ifdef ARDUINOWIRE
 void wirebegin();
 int wirestat(char);
 void wireopen(char, char);
 void wireins(char*, uint8_t);
 void wireouts(char*, uint8_t);
 short wireavailable();
+#endif
 
 /* RF24 radio input */
 int radiostat(char);
